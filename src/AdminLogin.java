@@ -3,6 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 
+import javax.swing.*;
+
 /**
  *
  * @author bethelhemhaile
@@ -110,7 +112,7 @@ public class AdminLogin extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("URW Bookman", 1, 18)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Admin Login");
+        jLabel2.setText("ADMIN LOGIN");
 
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel4.setText("USERNAME:");
@@ -197,6 +199,22 @@ public class AdminLogin extends javax.swing.JFrame {
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
+
+        adminLogin.addActionListener(e -> {
+            if(e.getSource() == adminLogin){
+                String userName = jTextField1.getText();
+                char[] password = jPasswordField1.getPassword();
+                String stringPassword = new String(password);
+
+                if(userName.equals("abcd") && stringPassword.equals("123456")){
+                    Admin admin = new Admin();
+                    admin.setVisible(true);
+                    this.setVisible(false);
+                } else {
+                    JOptionPane.showMessageDialog(AdminLogin.this, "Invalid login Credentials", "Login Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
 
         pack();
     }// </editor-fold>
