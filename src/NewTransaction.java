@@ -52,11 +52,11 @@ public class NewTransaction extends javax.swing.JFrame {
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel3.setText("Amount:");
 
-        amount.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                amountActionPerformed(evt);
-            }
-        });
+//        amount.addActionListener(new java.awt.event.ActionListener() {
+//            public void actionPerformed(java.awt.event.ActionEvent evt) {
+//                amountActionPerformed(evt);
+//            }
+//        });
 
         depositBtn.setBackground(new java.awt.Color(39, 150, 190));
         depositBtn.setFont(new java.awt.Font("Noto Sans CJK JP Medium", 1, 14)); // NOI18N
@@ -236,10 +236,6 @@ public class NewTransaction extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>
-
-    private void amountActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-    }
 
     /**
      * @param args the command line arguments

@@ -12,9 +12,6 @@ public class CustomerPage extends javax.swing.JFrame {
     private static String fullName;
     private CardLayout cardLayout;
     private JPanel customerPanel;
-    private JPanel myAccountPanel;
-    private JPanel transferMoneyPanel;
-    private JPanel buyAirTimePanel;
     javax.swing.JPanel myTransactionPanel;
 
     /**
@@ -119,13 +116,6 @@ public class CustomerPage extends javax.swing.JFrame {
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap(52, Short.MAX_VALUE))
         );
-
-//        transferMoneyPanel = new JPanel();
-//        transferMoneyPanel.add(new JLabel("Transfer Money"));
-//
-//        buyAirTimePanel = new JPanel();
-//        buyAirTimePanel.add(new JLabel("Buy Airtime"));
-
     }
 
     private void initComponents() {
@@ -241,20 +231,7 @@ public class CustomerPage extends javax.swing.JFrame {
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
-//        jPanel1Layout.setHorizontalGroup(
-//                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-//                        .addGroup(jPanel1Layout.createSequentialGroup()
-//                                .addGap(120, 120, 120)
-//                                .addComponent(airTimeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
-//                                .addContainerGap(107, Short.MAX_VALUE))
-//        );
-//        jPanel1Layout.setVerticalGroup(
-//                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-//                        .addGroup(jPanel1Layout.createSequentialGroup()
-//                                .addGap(17, 17, 17)
-//                                .addComponent(airTimeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-//                                .addContainerGap(21, Short.MAX_VALUE))
-//        );
+
         jPanel1Layout.setHorizontalGroup(
                 jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel1Layout.createSequentialGroup()
@@ -352,8 +329,6 @@ public class CustomerPage extends javax.swing.JFrame {
                                 .addContainerGap(35, Short.MAX_VALUE))
         );
 
-//        welcomePanel.setBackground(new java.awt.Color(255, 255, 255));
-
         welcomeLabel.setFont(new java.awt.Font("Noto Sans CJK TC Medium", 1, 24)); // NOI18N
         welcomeLabel.setForeground(new java.awt.Color(39, 150, 190));
         welcomeLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -444,13 +419,13 @@ public class CustomerPage extends javax.swing.JFrame {
                             stmt.setString(1, account);
 
                             // Execute the SQL statement and get the result set
-                            ResultSet rs = stmt.executeQuery();
+                            ResultSet rs = stmt.executeQuery();   // recieciver
 
                             String select = "SELECT * FROM Accounts WHERE AccountNumber = ?";
                             PreparedStatement st = conn.prepareStatement(select);
                             st.setString(1, accountNumber);
 
-                            ResultSet result = st.executeQuery();
+                            ResultSet result = st.executeQuery();     // Sender
                             if (result.next()){
                                 int totalBalance = result.getInt("Balance");
                                 if(totalBalance - moneyAmount< 100){
@@ -466,23 +441,22 @@ public class CustomerPage extends javax.swing.JFrame {
                                     if (rowsUpdated > 0) {
                                         System.out.println("Record updated successfully.");
                                         JOptionPane.showMessageDialog(null, "Transaction Successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
-//                                    this.setVisible(false);
                                     } else {
                                         System.out.println("No records were updated.");
                                         JOptionPane.showMessageDialog(null, "Transaction Failed! Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
                                     }}
-                                String transaction = "INSERT INTO Transactions (AccountNumber, TransactionType, Amount, Date, Description, CurrentBalance) VALUES (?, ?, ?, ?, ?, ?)";
-                                PreparedStatement transSt = conn.prepareStatement(transaction);
+                                    String transaction = "INSERT INTO Transactions (AccountNumber, TransactionType, Amount, Date, Description, CurrentBalance) VALUES (?, ?, ?, ?, ?, ?)";
+                                    PreparedStatement transSt = conn.prepareStatement(transaction);
 
-                                // Set the values of the parameters in the SQL statement
-                                transSt.setString(1, accountNumber);
-                                transSt.setString(2, "Money Transfer");
-                                transSt.setDouble(3, moneyAmount);
-                                transSt.setTimestamp(4, new Timestamp(System.currentTimeMillis()));
-                                transSt.setString(5, reason.getText());
-                                transSt.setDouble(6, totalBalance);
-                                transSt.executeUpdate();
-                                transSt.close();
+                                    // Set the values of the parameters in the SQL statement
+                                    transSt.setString(1, accountNumber);
+                                    transSt.setString(2, "Money Transfer");
+                                    transSt.setDouble(3, moneyAmount);
+                                    transSt.setTimestamp(4, new Timestamp(System.currentTimeMillis()));
+                                    transSt.setString(5, reason.getText());
+                                    transSt.setDouble(6, totalBalance);
+                                    transSt.executeUpdate();
+                                    transSt.close();
                             }
                             // Print out the values of the columns in the retrieved row
                             if (rs.next()) {
@@ -501,20 +475,20 @@ public class CustomerPage extends javax.swing.JFrame {
                                 } else {
                                     System.out.println("No records were updated.");
                                     JOptionPane.showMessageDialog(null, "Transaction Failed! Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
-                                }}
-                            String transaction = "INSERT INTO Transactions (AccountNumber, TransactionType, Amount, Date, Description, CurrentBalance) VALUES (?, ?, ?, ?, ?, ?)";
-                            PreparedStatement transSt = conn.prepareStatement(transaction);
+                                }
+                                String transaction = "INSERT INTO Transactions (AccountNumber, TransactionType, Amount, Date, Description, CurrentBalance) VALUES (?, ?, ?, ?, ?, ?)";
+                                PreparedStatement transSt = conn.prepareStatement(transaction);
 
-                            // Set the values of the parameters in the SQL statement
-                            transSt.setString(1, account);
-                            transSt.setString(2, "Deposit");
-                            transSt.setDouble(3, moneyAmount);
-                            transSt.setTimestamp(4, new Timestamp(System.currentTimeMillis()));
-                            transSt.setString(5, "Money Transfer");
-                            transSt.setDouble(6, rs.getInt("Balance") + moneyAmount);
-                            transSt.executeUpdate();
-                            transSt.close();
-
+                                // Set the values of the parameters in the SQL statement
+                                transSt.setString(1, account);
+                                transSt.setString(2, "Deposit");
+                                transSt.setDouble(3, moneyAmount);
+                                transSt.setTimestamp(4, new Timestamp(System.currentTimeMillis()));
+                                transSt.setString(5, "Money Transfer");
+                                transSt.setDouble(6, rs.getInt("Balance") + moneyAmount);
+                                transSt.executeUpdate();
+                                transSt.close();
+                            }
                             // Close the resources
                             result.close();
                             rs.close();
@@ -595,7 +569,7 @@ public class CustomerPage extends javax.swing.JFrame {
 
                             }}} catch (SQLException ex) {
                         throw new RuntimeException(ex);
-                    }});
+                }});
             }
         });
 

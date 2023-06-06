@@ -100,33 +100,9 @@ public class NewAccount extends javax.swing.JFrame {
         jLabel10.setText("Pin Number:");
 
         female.setText("female");
-        female.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-//                gender = "Female";
-                femaleActionPerformed(evt);
-            }
-        });
-
         male.setText("male");
-        male.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-//                gender = "Male";
-                femaleActionPerformed(evt);
-            }
-        });
 
         accountType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Saving Account", "Woman's Account", "Wedding Account", "Student Account" }));
-        accountType.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                accountTypeActionPerformed(evt);
-            }
-        });
-
-        pinNumber.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pinNumberActionPerformed(evt);
-            }
-        });
 
         createAccButton.setBackground(new java.awt.Color(39, 150, 190));
         createAccButton.setFont(new java.awt.Font("Noto Sans CJK KR Medium", 1, 14)); // NOI18N
@@ -247,56 +223,63 @@ public class NewAccount extends javax.swing.JFrame {
         });
         createAccButton.addActionListener(e -> {
             if (e.getSource() == createAccButton){
-                String firstname = firstName.getText();
-                String lastname = lastName.getText();
-                String phonenumber = phoneNumber.getText();
-                String balanceText = balance.getText();
-                int totalBalance = Integer.parseInt(balanceText);
-                String gendder = gender[0];
-                String addressOfPerson = address.getText();
-                String AccounType = (String) accountType.getSelectedItem();
-                char[] pinNum = pinNumber.getPassword();
-                String pinString = new String(pinNum);
-                Random random = new Random();
-                int accountNumber = (int) (random.nextDouble() * 10000000000L);
 
-                try {
-                    // Establish a connection to the database
-                    Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/Cash_Flow_Bank", "root", "");
-
-                    // Create a PreparedStatement for the insert statement
-                    String insertSql = "INSERT INTO Accounts (FirstName, LastName, PhoneNumber, Balance, Gender, Address, AccountType, PinNumber, AccountNumber) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-                    PreparedStatement pstmt = conn.prepareStatement(insertSql);
-
-                    // Set the values of the parameters in the insert statement
-                    pstmt.setString(1, firstname);
-                    pstmt.setString(2, lastname);
-                    pstmt.setString(3, phonenumber);
-                    pstmt.setDouble(4, totalBalance);
-                    pstmt.setString(5, gendder);
-                    pstmt.setString(6, addressOfPerson);
-                    pstmt.setString(7, AccounType);
-                    pstmt.setString(8, pinString);
-                    pstmt.setInt(9, accountNumber);
-
-                    // Execute the insert statement
-                    int rowsInserted = pstmt.executeUpdate();
-                    if (rowsInserted > 0) {
-                        System.out.println("Data inserted successfully!");
-                        JOptionPane.showMessageDialog(this, "Data inserted successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
-                    } else {
-                        System.out.println("Data insertion failed.");
-                        JOptionPane.showMessageDialog(this, "Data insertion failed.", "Error", JOptionPane.ERROR_MESSAGE);
-                    }
-
-                    // Close the PreparedStatement and Connection
-                    pstmt.close();
-                    conn.close();
-
-                } catch (SQLException ex) {
-                    ex.printStackTrace();
+                if (firstName.getText().isEmpty() || lastName.getText().isEmpty() || phoneNumber.getText().isEmpty() || balance.getText().isEmpty() || gender[0].isEmpty() || address.getText().isEmpty() ||  new String(pinNumber.getPassword()).isEmpty()) {
+                    // Handle the case where one or more variables are empty
+                    System.out.println("One or more variables are empty");
+                    JOptionPane.showMessageDialog(this, "Please Fill All Fields!! .", "Error", JOptionPane.WARNING_MESSAGE);
                 }
+                else {
+                    String firstname = firstName.getText();
+                    String lastname = lastName.getText();
+                    String phonenumber = phoneNumber.getText();
+                    String balanceText = balance.getText();
+                    int totalBalance = Integer.parseInt(balanceText);
+                    String gendder = gender[0];
+                    String addressOfPerson = address.getText();
+                    String AccounType = (String) accountType.getSelectedItem();
+                    char[] pinNum = pinNumber.getPassword();
+                    String pinString = new String(pinNum);
+                    Random random = new Random();
+                    int accountNumber = (int) (random.nextDouble() * 10000000000L);
+                    try {
+                        // Establish a connection to the database
+                        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/Cash_Flow_Bank", "root", "");
 
+                        // Create a PreparedStatement for the insert statement
+                        String insertSql = "INSERT INTO Accounts (FirstName, LastName, PhoneNumber, Balance, Gender, Address, AccountType, PinNumber, AccountNumber) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                        PreparedStatement pstmt = conn.prepareStatement(insertSql);
+
+                        // Set the values of the parameters in the insert statement
+                        pstmt.setString(1, firstname);
+                        pstmt.setString(2, lastname);
+                        pstmt.setString(3, phonenumber);
+                        pstmt.setDouble(4, totalBalance);
+                        pstmt.setString(5, gendder);
+                        pstmt.setString(6, addressOfPerson);
+                        pstmt.setString(7, AccounType);
+                        pstmt.setString(8, pinString);
+                        pstmt.setInt(9, accountNumber);
+
+                        // Execute the insert statement
+                        int rowsInserted = pstmt.executeUpdate();
+                        if (rowsInserted > 0) {
+                            System.out.println("Data inserted successfully!");
+                            JOptionPane.showMessageDialog(this, "Data inserted successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                        } else {
+                            System.out.println("Data insertion failed.");
+                            JOptionPane.showMessageDialog(this, "Data insertion failed.", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+
+                        // Close the PreparedStatement and Connection
+                        pstmt.close();
+                        conn.close();
+                        this.setVisible(false);
+
+                    } catch (SQLException ex) {
+                        ex.printStackTrace();
+                    }
+                }
             }
         });
 
@@ -304,18 +287,6 @@ public class NewAccount extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>
-
-    private void femaleActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-    }
-
-    private void accountTypeActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-    }
-
-    private void pinNumberActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-    }
 
     /**
      * @param args the command line arguments
