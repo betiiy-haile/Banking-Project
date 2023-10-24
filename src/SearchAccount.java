@@ -144,7 +144,7 @@ public class SearchAccount extends javax.swing.JFrame {
                     ResultSet rs = stmt.executeQuery();
 
                     // Display the search results
-                    JLabel searchResultLabel, firstNameLabel, lastNameLabel, accountTypeLabel, balanceLabel;
+                    JLabel searchResultLabel, firstNameLabel, lastNameLabel, phoneNumberLabel, addressLabel;
 
                     searchResultLabel = new JLabel("SEARCH RESULTS ");
                     searchResultLabel.setFont(new java.awt.Font("Noto Sans CJK TC Medium", 1, 18)); // NOI18N
@@ -158,13 +158,13 @@ public class SearchAccount extends javax.swing.JFrame {
                     lastNameLabel.setFont(new java.awt.Font("Noto Sans CJK TC Medium", 1, 14)); // NOI18N
                     lastNameLabel.setBounds(100, 120, 150, 40);
 
-                    accountTypeLabel = new JLabel("Phone Number: ");
-                    accountTypeLabel.setFont(new java.awt.Font("Noto Sans CJK TC Medium", 1, 14)); // NOI18N
-                    accountTypeLabel.setBounds(100, 170, 150, 40);
+                    phoneNumberLabel = new JLabel("Phone Number: ");
+                    phoneNumberLabel.setFont(new java.awt.Font("Noto Sans CJK TC Medium", 1, 14)); // NOI18N
+                    phoneNumberLabel.setBounds(100, 170, 150, 40);
 
-                    balanceLabel = new JLabel("Address: ");
-                    balanceLabel.setFont(new java.awt.Font("Noto Sans CJK TC Medium", 1, 14)); // NOI18N
-                    balanceLabel.setBounds(100, 210, 150, 40);
+                    addressLabel = new JLabel("Address: ");
+                    addressLabel.setFont(new java.awt.Font("Noto Sans CJK TC Medium", 1, 14)); // NOI18N
+                    addressLabel.setBounds(100, 210, 150, 40);
 
                     updateBtn.setBounds(550, 220, 140, 40);
                     updateBtn.setBackground(new Color(39, 150, 190) );
@@ -194,9 +194,9 @@ public class SearchAccount extends javax.swing.JFrame {
                     searchResult.add(firstNameTextField);
                     searchResult.add(lastNameLabel);
                     searchResult.add(lastNameTextField);
-                    searchResult.add(accountTypeLabel);
+                    searchResult.add(phoneNumberLabel);
                     searchResult.add(accountTypeTextField);
-                    searchResult.add(balanceLabel);
+                    searchResult.add(addressLabel);
                     searchResult.add(balanceTextField);
                     searchResult.add(updateBtn);
 

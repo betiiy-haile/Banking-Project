@@ -8,6 +8,10 @@ import java.sql.ResultSet;
 
 public class EmployeeLogin extends javax.swing.JFrame {
 
+    public EmployeeLogin(){
+        initComponents();
+    }
+
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
@@ -162,9 +166,6 @@ public class EmployeeLogin extends javax.swing.JFrame {
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
-
-
-
             }
         });
 

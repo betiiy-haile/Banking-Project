@@ -228,6 +228,10 @@ public class NewAccount extends javax.swing.JFrame {
                     // Handle the case where one or more variables are empty
                     System.out.println("One or more variables are empty");
                     JOptionPane.showMessageDialog(this, "Please Fill All Fields!! .", "Error", JOptionPane.WARNING_MESSAGE);
+                } else if (phoneNumber.getText().length() != 10 || !phoneNumber.getText().matches("[0-9]+") || !new String(pinNumber.getPassword()).matches("[0-9]+"))
+                {
+                    System.out.println("Data insertion failed.");
+                    JOptionPane.showMessageDialog(this, "Phone Number, Balance and PinNumber must be an Integer Values..", "Error", JOptionPane.ERROR_MESSAGE);
                 }
                 else {
                     String firstname = firstName.getText();
@@ -264,8 +268,8 @@ public class NewAccount extends javax.swing.JFrame {
                         // Execute the insert statement
                         int rowsInserted = pstmt.executeUpdate();
                         if (rowsInserted > 0) {
-                            System.out.println("Data inserted successfully!");
-                            JOptionPane.showMessageDialog(this, "Data inserted successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                            System.out.println("Account Created successfully! Your Account Number is " + accountNumber + ".");
+                            JOptionPane.showMessageDialog(this, "Account created successfully! Your account number is " + accountNumber + ".", "Success", JOptionPane.INFORMATION_MESSAGE);
                         } else {
                             System.out.println("Data insertion failed.");
                             JOptionPane.showMessageDialog(this, "Data insertion failed.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -278,19 +282,15 @@ public class NewAccount extends javax.swing.JFrame {
 
                     } catch (SQLException ex) {
                         ex.printStackTrace();
+                        System.out.println("Data insertion failed.");
+                        JOptionPane.showMessageDialog(this, "Data insertion failed.", "Error", JOptionPane.ERROR_MESSAGE);
                     }
                 }
             }
         });
-
-
-
         pack();
-    }// </editor-fold>
+    }
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

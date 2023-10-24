@@ -142,6 +142,18 @@ public class NewTransaction extends javax.swing.JFrame {
                             System.out.println("Record updated successfully.");
                             JOptionPane.showMessageDialog(null, "Transaction Successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
                             this.setVisible(false);
+
+                            String insertSql = "INSERT INTO Transactions (AccountNumber, TransactionType, Amount, Date, Description, CurrentBalance) " +
+                                    "VALUES (?, ?, ?, ?, ?, ?)";
+                            // Insert a new row into the Transactions table
+                            PreparedStatement insertPstmt = conn.prepareStatement(insertSql);
+                            insertPstmt.setString(1, account);
+                            insertPstmt.setString(2, "Deposit");
+                            insertPstmt.setDouble(3, moneyAmount); // Assuming the salary is in thousands
+                            insertPstmt.setDate(4, new java.sql.Date(System.currentTimeMillis()));
+                            insertPstmt.setString(5, "Deposit" );
+                            insertPstmt.setDouble(6, totalBalance);
+                            insertPstmt.executeUpdate();
                         } else {
                             System.out.println("No records were updated.");
                             JOptionPane.showMessageDialog(null, "Transaction Failed! Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -211,6 +223,18 @@ public class NewTransaction extends javax.swing.JFrame {
                                     System.out.println("No records were updated.");
                                     JOptionPane.showMessageDialog(null, "Transaction Failed! Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
                                 }
+
+                                String insertSql = "INSERT INTO Transactions (AccountNumber, TransactionType, Amount, Date, Description, CurrentBalance) " +
+                                        "VALUES (?, ?, ?, ?, ?, ?)";
+                                // Insert a new row into the Transactions table
+                                PreparedStatement insertPstmt = conn.prepareStatement(insertSql);
+                                insertPstmt.setString(1, account);
+                                insertPstmt.setString(2, "Withdraw");
+                                insertPstmt.setDouble(3, moneyAmount); // Assuming the salary is in thousands
+                                insertPstmt.setDate(4, new java.sql.Date(System.currentTimeMillis()));
+                                insertPstmt.setString(5, "withdraw" );
+                                insertPstmt.setDouble(6, totalBalance);
+                                insertPstmt.executeUpdate();
                             } else {
                                 System.out.println("Wrong PIN entered.");
                                 JOptionPane.showMessageDialog(null, "Wrong PIN Number! Please try again.", "Error", JOptionPane.ERROR_MESSAGE);

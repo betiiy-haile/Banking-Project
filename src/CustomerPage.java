@@ -407,6 +407,11 @@ public class CustomerPage extends javax.swing.JFrame {
                 confirmBtn.addActionListener(evt -> {
                     if (evt.getSource() == confirmBtn){
                         try {
+                            if (!amount.getText().matches("[0-9]+") || accountNumber1.getText().isEmpty()){
+                                JOptionPane.showMessageDialog(null, "Please enter valid values!!.", "Error", JOptionPane.ERROR_MESSAGE);
+                            }
+                            else{
+
                             String account = accountNumber1.getText();
                             Double moneyAmount = Double.parseDouble(amount.getText());
 
@@ -495,7 +500,7 @@ public class CustomerPage extends javax.swing.JFrame {
                             stmt.close();
 
                             conn.close();
-
+                            }
                         } catch (SQLException event) {
                             event.printStackTrace();
                         } catch (NumberFormatException event) {

@@ -1,3 +1,6 @@
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class FrontPage extends javax.swing.JFrame {
 
@@ -37,11 +40,22 @@ public class FrontPage extends javax.swing.JFrame {
         customerBtn.setBackground(new java.awt.Color(37, 150, 190));
         customerBtn.setForeground(new java.awt.Color(255, 255, 255));
         customerBtn.setText("Customer");
-        customerBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                customerBtnActionPerformed(evt);
+
+
+        JMenuBar menuBar = new JMenuBar();
+        JMenu adminMenu = new JMenu("Admin");
+        JMenuItem adminMenuItem = new JMenuItem("Admin Panel");
+        adminMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AdminLogin adminLogin = new AdminLogin();
+                adminLogin.setVisible(true);
+                setVisible(false);
             }
         });
+        adminMenu.add(adminMenuItem);
+        menuBar.add(adminMenu);
+        setJMenuBar(menuBar);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -86,6 +100,19 @@ public class FrontPage extends javax.swing.JFrame {
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
+
+        customerBtn.addActionListener(e -> {
+            if(e.getSource() == customerBtn){
+                LoginPage customerPage = new LoginPage();
+
+                // set the new page as the visible page
+                customerPage.setVisible(true);
+
+                // hide the current page
+                this.setVisible(false);
+            }
+        });
+
         pack();
     }
 
@@ -99,16 +126,8 @@ public class FrontPage extends javax.swing.JFrame {
         this.setVisible(false);
     }
 
-    private void customerBtnActionPerformed(java.awt.event.ActionEvent evt) {
-        LoginPage customerPage = new LoginPage();
 
-        // set the new page as the visible page
-        customerPage.setVisible(true);
-
-        // hide the current page
-        this.setVisible(false);
-    }
-
+    
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

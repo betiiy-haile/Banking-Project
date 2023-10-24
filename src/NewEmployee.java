@@ -108,55 +108,21 @@ public class NewEmployee extends javax.swing.JFrame {
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel11.setText("Phone Number:");
 
-//        firstName.addActionListener(new java.awt.event.ActionListener() {
-//            public void actionPerformed(java.awt.event.ActionEvent evt) {
-//                firstNameActionPerformed(evt);
-//            }
-//        });
-
         jLabel2.setFont(new java.awt.Font("Noto Sans CJK TC Medium", 1, 14)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel2.setText("Last Name:");
 
-//        phoneNumber.addActionListener(new java.awt.event.ActionListener() {
-//            public void actionPerformed(java.awt.event.ActionEvent evt) {
-//                phoneNumberActionPerformed(evt);
-//            }
-//        });
-
-//        address.addActionListener(new java.awt.event.ActionListener() {
-//            public void actionPerformed(java.awt.event.ActionEvent evt) {
-//                addressActionPerformed(evt);
-//            }
-//        });
 
         jLabel12.setFont(new java.awt.Font("Noto Sans CJK TC Medium", 1, 14)); // NOI18N
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel12.setText("Pin Number:");
 
-//        pinNumber.addActionListener(new java.awt.event.ActionListener() {
-//            public void actionPerformed(java.awt.event.ActionEvent evt) {
-//                pinNumberActionPerformed(evt);
-//            }
-//        });
-
         registerBtn.setBackground(new java.awt.Color(37, 150, 190));
         registerBtn.setFont(new java.awt.Font("Noto Sans CJK TC Medium", 1, 14)); // NOI18N
         registerBtn.setForeground(new java.awt.Color(255, 255, 255));
         registerBtn.setText("REGISTER EMPLOYEE");
-//        registerBtn.addActionListener(new java.awt.event.ActionListener() {
-//            public void actionPerformed(java.awt.event.ActionEvent evt) {
-//                registerBtnActionPerformed(evt);
-//            }
-//        });
 
         female.setText("Female");
-//        female.addActionListener(new java.awt.event.ActionListener() {
-//            public void actionPerformed(java.awt.event.ActionEvent evt) {
-//                femaleActionPerformed(evt);
-//            }
-//        });
-
         male.setText("Male");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -278,6 +244,11 @@ public class NewEmployee extends javax.swing.JFrame {
                     System.out.println("One or more variables are empty");
                     JOptionPane.showMessageDialog(this, "Please Fill All Fields!! .", "Error", JOptionPane.WARNING_MESSAGE);
                 }
+                else if (phoneNumber.getText().length() != 10 || !phoneNumber.getText().matches("[0-9]+") || pinNumber.getText().matches("[0-9]+"))
+                {
+                    System.out.println("Data insertion failed.");
+                    JOptionPane.showMessageDialog(this, "Phone Number, Balance and PinNumber must be an Integer Values..", "Error", JOptionPane.ERROR_MESSAGE);
+                }
                 else{
                     String firstname = firstName.getText();
                     String lastname = lastName.getText();
@@ -328,7 +299,7 @@ public class NewEmployee extends javax.swing.JFrame {
 
                         if (rowsInserted > 0 && rowsinserted > 0) {
                             System.out.println("Employee successfully registered!!");
-                            JOptionPane.showMessageDialog(this, "Employee successfully registered!!, A respective Account also created!!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                            JOptionPane.showMessageDialog(this, "Employee successfully registered!!, A respective Account also created!! Your Account Number is" + accountNumber + ".", "Success", JOptionPane.INFORMATION_MESSAGE);
                         } else {
                             System.out.println("Data insertion failed.");
                             JOptionPane.showMessageDialog(this, "Something went Wrong!!.", "Error", JOptionPane.ERROR_MESSAGE);
